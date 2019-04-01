@@ -27,5 +27,11 @@ export class CdkPlaygroundStack extends cdk.Stack {
     user.addToGroup(group);
 
     console.log(user)
+
+    // Creating IAM instance from cfn resources (don't need it now, right?):
+    ///new ec2.CfnInstance(this, "MyInstance", {
+    ///  imageId: 'ami-07683a44e80cd32c5',
+    ///  instanceType: 't2.micro',
+    ///})
   }
 }
