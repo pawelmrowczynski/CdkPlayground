@@ -12,10 +12,10 @@ export class CdkPlaygroundStack extends cdk.Stack {
     group.attachManagedPolicy('arn:aws:iam::aws:policy/IAMUserChangePassword')
 
     // Declare test user
-    const user = new iam.User(this, 'CdkUser', { 
-      password: 'Asdfqwer1234',
-      userName: 'CdkUser',
-    });
+    ///const user = new iam.User(this, 'CdkUser', { 
+     /// password: 'Asdfqwer1234',
+     /// userName: 'CdkUser',
+    ///});
 
     new iam.Role(this, "testCdkRole_ecInstance_AccessToS3",
     {
@@ -24,9 +24,9 @@ export class CdkPlaygroundStack extends cdk.Stack {
     });
 
     // Connect those 2 together
-    user.addToGroup(group);
+    ///user.addToGroup(group);
 
-    console.log(user)
+    ///console.log(user)
 
     // Creating IAM instance from cfn resources (don't need it now, right?):
     ///new ec2.CfnInstance(this, "MyInstance", {
