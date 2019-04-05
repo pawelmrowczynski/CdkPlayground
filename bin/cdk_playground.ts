@@ -2,8 +2,9 @@
 import 'source-map-support/register';
 import cdk = require('@aws-cdk/cdk');
 import { CdkPlaygroundStack } from '../lib/cdk_playground-stack';
-import { CoreStack } from '../lib/core-stack';
 import { IVpcNetwork } from '@aws-cdk/aws-ec2';
+import { Parameters } from '../lib/Parameters';
+import { CoreStack } from '../lib/core-stack';
 
 
 export interface InterfaceWithCoreStuff extends cdk.StackProps {
@@ -11,5 +12,13 @@ export interface InterfaceWithCoreStuff extends cdk.StackProps {
 }
 
 const app = new cdk.App();
-new CoreStack(app, 'CoreStack');
-new CdkPlaygroundStack(app, 'CdkPlaygroundStack');
+
+const params = new Parameters()
+params.getParameters().then(parameters => {
+    console.log(parameters)
+    const coreStack = new CoreStack(app, "CoreStack");
+
+    new CdkPlaygroundStack(app, "test", {
+        vpc: coreStack.vpc
+    })
+})
