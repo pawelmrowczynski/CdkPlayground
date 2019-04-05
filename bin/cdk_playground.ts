@@ -16,9 +16,10 @@ const app = new cdk.App();
 const params = new Parameters()
 params.getParameters().then(parameters => {
     console.log(parameters)
+
     const coreStack = new CoreStack(app, "CoreStack");
 
-    new CdkPlaygroundStack(app, "test", {
+    new CdkPlaygroundStack(app, "PlaygroundStack", parameters, {
         vpc: coreStack.vpc
     })
 })
