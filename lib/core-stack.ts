@@ -17,9 +17,9 @@ export class CoreStack extends cdk.Stack {
       vpc: this.vpc
     })
 
-    const dbSubnetGroup = new rds.CfnDBSubnetGroup(this, "coreDbSubnetGroup", {
+    const dbSubnetGroup = new rds.CfnDBSubnetGroup(this, "coredbsubnetgroup", {
       dbSubnetGroupDescription: 'Subnet group for core db',
-      dbSubnetGroupName: 'coreDbSubnetGroup',
+      dbSubnetGroupName: 'coredbsubnetgroup',
       subnetIds: this.vpc.publicSubnets.map(item => item.subnetId)
     })
     dbSecurityGroup.addIngressRule(new ec2.AnyIPv4(), new ec2.TcpPort(3306))  // access to database from the outside world (temporary, 
@@ -43,9 +43,10 @@ export class CoreStack extends cdk.Stack {
       },
       databaseName: 'CoreDb',
       sourceRegion: 'eu-west-1',
-      ///vpcSecurityGroupIds: [dbSecurityGroup.securityGroupId.toString()],
+      vpcSecurityGroupIds: [dbSecurityGroup.securityGroupId.toString()],
       dbSubnetGroupName: dbSubnetGroup.dbSubnetGroupName,
-      ///availabilityZones: this.vpc.availabilityZones
+      availabilityZones: this.vpc.availabilityZones
+
     })
   }
 }
